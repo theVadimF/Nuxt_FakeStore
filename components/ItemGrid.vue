@@ -1,12 +1,17 @@
 <template>
-  <div class="card-grid gap-1">
-    <div class="flex flex-col gap-1 p-5" v-for="product in products" :key="product.id">
-      <img class="h-[200px] object-contain" :src="product.image" alt="">
-      <p class="font-medium text-lg">{{ product.title }}</p>
-      <p class="mt-auto flex gap-[1px]">Rating: {{ product.rating.rate }}/5 <Icon class="self-center" name="la:star"/> ({{ product.rating.count }})</p>
-      <div class="flex gap-2 items-center">
-        <button class="bg-green-800 text-white px-2 py-1 flex gap-1"><Icon class="self-center" name="la:cart-plus"/>Add to cart</button>
-        <p class="text-lg font-light flex">{{ product.price }}<Icon class="self-center" name="la:dollar-sign"/></p>
+  <div class="">
+    <button @click="switchView">Switch</button>
+    <div class="gap-3 m-3" :class="grid_view ? 'card-grid' : 'card-list'">
+      <div class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" v-for="product in products" :key="product.id">
+        <img :src="product.image" alt="">
+        <div class="flex flex-col gap-1">
+          <p class="font-medium text-lg">{{ product.title }}</p>
+          <p class="mt-auto flex gap-[1px]">Rating: {{ product.rating.rate }}/5 <Icon class="self-center" name="la:star"/> ({{ product.rating.count }})</p>
+          <div class="flex gap-2 items-center">
+            <button class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md"><Icon class="self-center" name="la:cart-plus"/>Add to cart</button>
+            <p class="text-xl font-light flex">{{ product.price }}<Icon class="self-center" name="la:dollar-sign"/></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -21,6 +26,16 @@ export default defineComponent({
   },
   props: {
     products: Object,
+  },
+  data() {
+    return {
+      grid_view: false,
+    }
+  },
+  methods: {
+    switchView() {
+      this.grid_view = !this.grid_view;
+    }
   }
 })
 </script>
@@ -30,4 +45,31 @@ export default defineComponent({
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
   }
+
+  .card-list {
+    display: flex;
+    flex-direction: column
+  }
+
+  @tailwind components;
+
+  @layer components {
+    .item-grid {
+      @apply flex flex-col gap-1
+    }
+
+    .item-grid img {
+      @apply h-[200px] object-contain
+    }
+
+    .item-list {
+      @apply grid gap-5;
+      grid-template-columns: 100px 1fr;
+    }
+
+    .item-list img {
+      @apply object-contain h-[100px] justify-self-center self-center
+    }
+  }
+
 </style>
