@@ -1,15 +1,19 @@
 <template>
   <div class="">
-    <button @click="switchView">Switch</button>
+    <div class="flex items-center gap-0 bg-gray-300 w-fit ml-4 px-3 py-2 rounded-xl text-xl text-gray-500 shadow-md">
+      <button class="flex items-center" :class="{'text-black' : !grid_view}" @click="grid_view = false"><Icon name="ph:list-bold"/></button>
+      <Icon class="text-black" name="vaadin:line-v"/>
+      <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
+    </div>
     <div class="gap-3 m-3" :class="grid_view ? 'card-grid' : 'card-list'">
       <div class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" v-for="product in products" :key="product.id">
-        <img class="flex-shrink-0" :src="product.image" alt="">
+        <img class="flex-shrink-0" :src="product.image" alt="Product thumbnail">
         <div class="flex flex-col gap-1 h-full">
           <p class="font-medium text-lg">{{ product.title }}</p>
           <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center" name="la:star"/> ({{ product.rating.count }})</p>
-          <div class="flex gap-2 items-center">
+          <div class="flex gap-2 items-center mt-1">
             <button class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md"><Icon class="self-center" name="la:cart-plus"/>Add to cart</button>
-            <p class="text-xl font-light flex">{{ product.price }}<Icon class="self-center" name="la:dollar-sign"/></p>
+            <p class="text-xl font-light flex">${{ product.price }}</p>
           </div>
         </div>
       </div>
