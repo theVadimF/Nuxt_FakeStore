@@ -1,5 +1,5 @@
-.<template>
-  <div class="content flex justify-between flex-row items-center p-3 ml-auto mr-auto">
+<template>
+  <div class="content flex justify-between flex-row items-center p-3 ml-auto mr-auto fixed top-0 bg-white w-full">
     <p class="font-normal text-3xl site-name">FakeStore</p>
     <button @click="test"><Icon class="text-3xl" name="la:shopping-cart"/></button>
   </div>

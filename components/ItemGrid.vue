@@ -10,9 +10,10 @@
         <img class="flex-shrink-0" :src="product.image" alt="Product thumbnail">
         <div class="flex flex-col gap-1 h-full">
           <p class="font-medium text-lg">{{ product.title }}</p>
-          <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center" name="la:star"/> ({{ product.rating.count }})</p>
+          <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
           <div class="flex gap-2 items-center mt-1">
-            <button class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md"><Icon class="self-center" name="la:cart-plus"/>Add to cart</button>
+            <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
+            <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
             <p class="text-xl font-light flex">${{ product.price }}</p>
           </div>
         </div>
@@ -30,6 +31,7 @@ export default defineComponent({
   },
   props: {
     products: Object,
+    cart: { type: Array, required: true }
   },
   data() {
     return {
@@ -37,8 +39,16 @@ export default defineComponent({
     }
   },
   methods: {
-    switchView() {
-      this.grid_view = !this.grid_view;
+    addToCart(id: number) {
+      this.cart.push(
+        {
+          productId: id,
+          quantity: 1
+        })
+    },
+    isInCart(id: number) {
+      const cartElement = this.cart.find(e => e.productId == id);
+      return cartElement === undefined;
     }
   }
 })

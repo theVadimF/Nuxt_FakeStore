@@ -1,6 +1,7 @@
 <template>
-  <PageHeader/>
-  <ItemGrid :products="products"/>
+  <div class="">
+    <ItemGrid :products="products" :cart="$attrs.cart"/>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,6 +13,11 @@ export default defineComponent({
     // TODO(vf) Handle fetch fail
     const {data: products} = useFetch('https://fakestoreapi.com/products');
     return {products}
+  },
+  methods: {
+    test(e) {
+      console.log(e)
+    }
   }
 })
 
