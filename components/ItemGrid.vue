@@ -12,9 +12,9 @@
           <p class="font-medium text-lg">{{ product.title }}</p>
           <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
           <div class="flex gap-2 items-center mt-1">
-            <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
-            <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
-            <p class="text-xl font-light flex">${{ product.price }}</p>
+            <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id, product.price)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
+            <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="$emit('openCart', true)"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
+            <p class="text-xl font-light">${{ product.price.toFixed(2) }}</p>
           </div>
         </div>
       </div>
@@ -39,18 +39,20 @@ export default defineComponent({
     }
   },
   methods: {
-    addToCart(id: number) {
+    addToCart(id: number, price: number) {
       this.cart.push(
         {
           productId: id,
-          quantity: 1
+          quantity: 1,
+          cachedPrice: price,
         })
     },
     isInCart(id: number) {
       const cartElement = this.cart.find(e => e.productId == id);
       return cartElement === undefined;
     }
-  }
+  },
+  emits: ['openCart']
 })
 </script>
 

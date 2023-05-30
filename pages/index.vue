@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <ItemGrid :products="products" :cart="$attrs.cart"/>
+    <ItemGrid :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)"/>
   </div>
 </template>
 
@@ -14,11 +14,7 @@ export default defineComponent({
     const {data: products} = useFetch('https://fakestoreapi.com/products');
     return {products}
   },
-  methods: {
-    test(e) {
-      console.log(e)
-    }
-  }
+  emits: ['openCart']
 })
 
 
