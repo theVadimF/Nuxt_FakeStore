@@ -2,7 +2,7 @@
   <div>
     <p v-if="pending">Loading...</p>
     <div v-else class="p-3 bg-white rounded-xl shadow-xl item-list grid gap-5">
-      <img class="flex-shrink-0 max-h-[100px] justify-self-center" :src="product.image" alt="Product thumbnail">
+      <img class="flex-shrink-0 row-span-2 max-h-[100px] justify-self-center self-center image-location" :src="product.image" alt="Product thumbnail">
       <p class="font-medium text-base sm:text-lg row-start-1 col-start-2">{{ product.title }}</p>
       <div class="flex col-end-3 gap-2 items-center mt-auto bottom-location">
         <SpinBox :value="item.quantity" @increase="increase" @decrease="decrease" />
@@ -49,7 +49,7 @@
   }
 
   .bottom-location {
-    grid-row-start: 1;
+    grid-row-start: 2;
     grid-column-start: 2;
   }
 
@@ -61,6 +61,10 @@
     .bottom-location {
       grid-row-start: 2;
       grid-column-start: 1;
+    }
+
+    .image-location {
+      grid-row: span 1
     }
   }
 </style>
