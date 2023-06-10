@@ -35,6 +35,9 @@ export default defineComponent({
     products: Object,
     cart: { type: Array, required: true },
     category_filter: { type: Array, required: true},  // TODO(vf) Check if I can make this optional
+    min_price: { type: String },
+    max_price: { type: String },
+    min_rating: { type: String }
   },
   data() {
     return {
@@ -53,14 +56,29 @@ export default defineComponent({
     isInCart(id: number) {
       const cartElement = this.cart.find(e => e.productId == id);
       return cartElement === undefined;
+    },
+    numericFilters(products: any) {  // TODO(vf) fix type
+      let min_price = 0;
+      let max_price = Infinity;
+      let min_rating = 0;
+      if (this.min_price != '') {
+        min_price = +this.min_price
+      }
+      if (this.max_price != '') {
+        max_price = +this.max_price;
+      }
+      if (this.min_rating != '') {
+        min_rating = +this.min_rating;
+      }
+      return products.filter(product => product.price >= min_price && product.price <= max_price && product.rating.rate >= min_rating);
     }
   },
   computed: {
     filteredProducts() {
       if (this.category_filter.length == 0) {
-        return this.products
+        return this.numericFilters(this.products)
       }
-      return this.products.filter(product => this.category_filter.includes(product.category))
+      return this.numericFilters(this.products.filter(product => this.category_filter.includes(product.category)))
     }
   },
   emits: ['openCart']

@@ -1,6 +1,6 @@
 <template>
-  <div class="fixed bg-black z-10 h-full w-full top-0 bg-opacity-25" @click="$emit('closeCart', false)"></div>
-  <div class="fixed bg-white z-20 w-full max-w-xl h-full right-0 top-0 flex flex-col box-border">
+  <div class="fixed bg-black z-20 h-full w-full top-0 bg-opacity-25" @click="$emit('closeCart', false)"></div>
+  <div class="fixed bg-white z-30 w-full max-w-xl h-full right-0 top-0 flex flex-col box-border">
     <div class="flex justify-between items-center text-3xl p-3">
       <h1 class="headtext">Cart</h1>
       <button @click="$emit('closeCart', false)"><Icon alt="Close cart" name="material-symbols:close"/></button>
