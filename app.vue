@@ -15,29 +15,11 @@
 
   let cart: cartItemType[] = reactive([]);
   let openCart = ref(false);
-
-  // TODO(vf) May not be needed
-  // function editCart(id: number, qty: number) {
-  //   let cartElement = cart.find(e => e.productId == id);
-
-  //   // Remove the entry if quantity is set to 0
-  //   if (qty <= 0) {
-  //     if (cartElement === undefined) {
-  //       // TODO(vf) catch
-  //       throw new Error('Attempted to remove a non existing element from cart');
-  //     }
-  //     cart = cart.filter(obj => obj != cartElement);
-  //   }
-
-  //   if (cartElement === undefined) {
-  //     cart.push({productId: id, quantity: qty});
-  //   } else {
-  //     cartElement.quantity = qty;
-  //   }
-  //   console.log(cart);
-  // }
 </script>
 
-<style scoped>
-
+<style>
+  .oswald {
+    font-family: Oswald;
+  }
+  /* TODO(vf) set header height here and edit the sticky on browser */
 </style>

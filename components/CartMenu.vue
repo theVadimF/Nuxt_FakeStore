@@ -10,7 +10,7 @@
       <CartItem v-for="product in cart" :item="product" @removeItem="(item) => removeItem(item)" :key="product.productId"/>
     </div>
     <div class="flex items-center gap-2 p-3">
-      <button :disabled="cart.length === 0" class="flex items-center px-3 py-1 gap-1 rounded-xl shadow-md" :class="cart.length === 0 ? 'cursor-not-allowed bg-gray-600 text-gray-200' : 'bg-green-800 text-white'"><Icon class="self-center text-xl" name="la:shopping-bag"/>Checkout</button>
+      <button :disabled="cart.length === 0" class="flex items-center px-3 py-1 gap-1 rounded-xl shadow-md" :class="cart.length === 0 ? 'cursor-not-allowed bg-white text-gray-500 outline outline-gray-500' : 'bg-green-800 text-white'"><Icon class="self-center text-xl" name="la:shopping-bag"/>Checkout</button>
       <p class="text-xl font-light">${{ calcTotal() }}</p>
     </div>
   </div>

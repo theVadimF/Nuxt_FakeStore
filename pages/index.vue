@@ -1,19 +1,15 @@
 <template>
   <div class="">
-    <ItemGrid :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)"/>
+    <ItemBrowser :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)"/>
+    <!-- <ItemGrid :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)"/> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-
 export default defineComponent({
-  setup () {
-    // TODO(vf) Handle fetch fail
-    const {data: products} = useFetch('https://fakestoreapi.com/products');
-    return {products}
-  },
+  setup () {},
   emits: ['openCart']
 })
 

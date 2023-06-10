@@ -6,15 +6,17 @@
       <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
     </div>
     <div class="gap-3 m-3" :class="grid_view ? 'card-grid' : 'card-list'">
-      <div class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" v-for="product in products" :key="product.id">
-        <img class="flex-shrink-0" :src="product.image" alt="Product thumbnail">
-        <div class="flex flex-col gap-1 h-full">
-          <p class="font-medium text-lg">{{ product.title }}</p>
-          <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
-          <div class="flex gap-2 items-center mt-1">
-            <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id, product.price)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
-            <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="$emit('openCart', true)"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
-            <p class="text-xl font-light">${{ product.price.toFixed(2) }}</p>
+      <div class="" v-for="product in filteredProducts">
+        <div class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" :key="product.id">
+          <img class="flex-shrink-0" :src="product.image" alt="Product thumbnail">
+          <div class="flex flex-col gap-1 h-full">
+            <p class="font-medium text-lg">{{ product.title }}</p>
+            <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
+            <div class="flex gap-2 items-center mt-1">
+              <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id, product.price)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
+              <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="$emit('openCart', true)"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
+              <p class="text-xl font-light">${{ product.price.toFixed(2) }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -31,7 +33,8 @@ export default defineComponent({
   },
   props: {
     products: Object,
-    cart: { type: Array, required: true }
+    cart: { type: Array, required: true },
+    category_filter: { type: Array, required: true},  // TODO(vf) Check if I can make this optional
   },
   data() {
     return {
@@ -50,6 +53,14 @@ export default defineComponent({
     isInCart(id: number) {
       const cartElement = this.cart.find(e => e.productId == id);
       return cartElement === undefined;
+    }
+  },
+  computed: {
+    filteredProducts() {
+      if (this.category_filter.length == 0) {
+        return this.products
+      }
+      return this.products.filter(product => this.category_filter.includes(product.category))
     }
   },
   emits: ['openCart']
