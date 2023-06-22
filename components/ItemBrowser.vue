@@ -1,6 +1,10 @@
 <template>
   <div class="flex">
-    <div class="sticky flex flex-col gap-2 top-[60px] h-fit p-2 max-w-[200px]">
+    <div class="flex-col gap-2 filter-wrap" :class="show_filters ? 'flex' : 'hidden'">
+      <div class="filter-display justify-between items-center text-3xl p-0 mb-2">
+        <h1 class="oswald">Filters</h1>
+        <button><Icon alt="Close filters" @click="show_filters = false" name="material-symbols:close"/></button>
+      </div>
       <div class="">
         <h2 class="text-xl font-medium">Categories</h2>
         <div class="flex items-center gap-1" v-for="cat in categories">
@@ -25,7 +29,17 @@
         </div>
       </div>
     </div>
-    <ItemGrid class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()"/>
+    <div class="">
+      <div class="ml-4 flex gap-2">
+        <button class="filter-display items-center bg-gray-300 w-fit px-3 py-2 rounded-xl text-md shadow-md" @click="show_filters = true"><Icon class="text-xl" name="la:filter"/> Filters</button>
+        <div class="flex items-center gap-0 bg-gray-300 w-fit px-3 py-2 rounded-xl text-xl text-gray-500 shadow-md">
+          <button class="flex items-center" :class="{'text-black' : !grid_view}" @click="grid_view = false"><Icon name="ph:list-bold"/></button>
+          <Icon class="text-black" name="vaadin:line-v"/>
+          <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
+        </div>
+      </div>
+      <ItemGrid class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
+    </div>
   </div>
 </template>
 
@@ -45,6 +59,8 @@ export default defineComponent({
       min_price: ref(''),
       max_price: ref(''),
       min_rating: ref(''),
+      grid_view: false,
+      show_filters: false,
     }
   },
   emits: ['openCart']
@@ -84,5 +100,36 @@ export default defineComponent({
 
   input[type="checkbox"]:checked::before {
     transform: scale(1);
+  }
+
+  .filter-wrap {
+    /* display: none; */
+    position: fixed;
+    background-color: white;
+    z-index: 10;  /* TODO(vf) May need adjustments to not interfere with cart */
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding: 1rem;
+  }
+
+  .filter-display {
+    display: flex;
+  }
+
+  @media (min-width: 380px) {
+    .filter-wrap {
+      display: flex;
+      position: sticky;
+      top: 60px;
+      height: fit-content;
+      padding: 0.5rem;
+      max-width: 200px;
+    }
+
+    .filter-display {
+      display: none;
+    }
   }
 </style>
