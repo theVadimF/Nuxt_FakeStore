@@ -1,10 +1,5 @@
 <template>
   <div class="">
-    <!-- <div class="flex items-center gap-0 bg-gray-300 w-fit ml-4 px-3 py-2 rounded-xl text-xl text-gray-500 shadow-md">
-      <button class="flex items-center" :class="{'text-black' : !grid_view}" @click="grid_view = false"><Icon name="ph:list-bold"/></button>
-      <Icon class="text-black" name="vaadin:line-v"/>
-      <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
-    </div> -->
     <div class="gap-3 m-3" :class="grid_view ? 'card-grid' : 'card-list'">
       <div class="" v-for="product in filteredProducts">
         <div class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" :key="product.id">
