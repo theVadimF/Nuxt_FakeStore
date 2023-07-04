@@ -107,7 +107,7 @@
     display: flex;
   }
 
-  @media (min-width: 380px) {
+  @media (min-width: 600px) {
     .filter-wrap {
       z-index: 10;
       display: flex;

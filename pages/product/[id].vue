@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 box-border max-w-4xl ml-auto mr-auto">
-    <div class="flex gap-3">
-      <div class="flex max-w-xs min-w-[300px] flex-shrink-0 justify-center">
+    <div class="flex gap-3 layout">
+      <div class="flex max-w-xs min-w-[300px] flex-shrink-0 justify-center ml-auto mr-auto">
         <img class="max-h-96 object-contain" :src="product.image" alt="">
       </div>
       <div class="p-3 box-border">
@@ -48,5 +48,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+  @media (max-width: 700px) {
+    .layout {
+      flex-direction: column;
+    }
+  }
 </style>
