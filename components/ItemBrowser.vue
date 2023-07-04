@@ -38,33 +38,22 @@
           <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
         </div>
       </div>
-      <ItemGrid class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
+      <ItemGrid class="w-full min-w-full" :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+  // TODO(vf) Handle fetch fail
+  const {data: products} = await useFetch('https://fakestoreapi.com/products');
+  const {data: categories} = await useFetch('https://fakestoreapi.com/products/categories')
 
-export default defineComponent({
-  async setup () {
-    // TODO(vf) Handle fetch fail
-    const {data: products} = await useFetch('https://fakestoreapi.com/products');
-    const {data: categories} = await useFetch('https://fakestoreapi.com/products/categories')
-    return {products, categories}
-  },
-  data() {
-    return {
-      selected_categories: reactive([]),
-      min_price: ref(''),
-      max_price: ref(''),
-      min_rating: ref(''),
-      grid_view: false,
-      show_filters: false,
-    }
-  },
-  emits: ['openCart']
-})
+  let selected_categories = ref([]);
+  let min_price = ref('');
+  let max_price = ref('');
+  let min_rating = ref('');
+  let grid_view = ref(false);
+  let show_filters = ref(false);
 </script>
 
 <style scoped>

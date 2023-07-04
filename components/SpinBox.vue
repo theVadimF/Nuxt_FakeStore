@@ -1,6 +1,7 @@
 <template>
   <div class="flex bg-gray-300 rounded-md items-center shadow-md">
     <button class="btn" @click="$emit('decrease')"><Icon name="la:minus"/></button>
+    <!-- TODO(vf) Make input work -->
     <input type="number" class="w-[35px] rounded-md my-1 flex text-center shadow-sm" v-model="value">
     <button class="btn" @click="$emit('increase')"><Icon name="la:plus"/></button>
   </div>

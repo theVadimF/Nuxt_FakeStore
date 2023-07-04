@@ -2,18 +2,18 @@
   <div class="">
     <div class="gap-3 m-3" :class="grid_view ? 'card-grid' : 'card-list'">
       <div class="" v-for="product in filteredProducts">
-        <NuxtLink class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" :key="product.id" :to="`/product/${product.id}`">
+        <div class="p-3 bg-white rounded-xl shadow-xl" :class="grid_view ? 'item-grid' : 'item-list'" :key="product.id">
           <img class="flex-shrink-0 object-contain" :src="product.image" alt="Product thumbnail">
           <div class="flex flex-col gap-1 h-full">
-            <p class="font-medium text-lg">{{ product.title }}</p>
+            <NuxtLink class="font-medium text-lg" :to="`/product/${product.id}`">{{ product.title }}</NuxtLink>
             <p class="flex gap-[1px] mt-auto">Rating: {{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
-            <div class="flex gap-2 items-center mt-1">
+            <div class="flex gap-2 items-center mt-1 z-10">
               <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id, product.price)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
               <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="$emit('openCart', true)"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
               <p class="text-xl font-light">${{ product.price.toFixed(2) }}</p>
             </div>
           </div>
-        </NuxtLink>
+        </div>
       </div>
     </div>
   </div>
