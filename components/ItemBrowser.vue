@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex justify-center">
     <div class="flex-col gap-2 filter-wrap" :class="show_filters ? 'flex' : 'hidden'">
       <div class="filter-display justify-between items-center text-3xl p-0 mb-2">
         <h1 class="oswald">Filters</h1>
@@ -47,10 +47,10 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup () {
+  async setup () {
     // TODO(vf) Handle fetch fail
-    const {data: products} = useFetch('https://fakestoreapi.com/products');
-    const {data: categories} = useFetch('https://fakestoreapi.com/products/categories')
+    const {data: products} = await useFetch('https://fakestoreapi.com/products');
+    const {data: categories} = await useFetch('https://fakestoreapi.com/products/categories')
     return {products, categories}
   },
   data() {

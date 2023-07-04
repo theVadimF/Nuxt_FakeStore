@@ -1,7 +1,6 @@
 <template>
   <div class="">
     <ItemBrowser :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)"/>
-    <!-- <ItemGrid :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)"/> -->
   </div>
 </template>
 

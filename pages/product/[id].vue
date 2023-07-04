@@ -2,7 +2,7 @@
   <div class="p-4 box-border max-w-4xl ml-auto mr-auto">
     <div class="flex gap-3">
       <div class="flex max-w-xs min-w-[300px] flex-shrink-0 justify-center">
-        <img class="max-h-96" :src="product.image" alt="">
+        <img class="max-h-96 object-contain" :src="product.image" alt="">
       </div>
       <div class="p-3 box-border">
         <h1 class="font-medium text-xl">{{ product.title }}</h1>
@@ -22,9 +22,9 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup () {
+  async setup () {
     const route = useRoute();
-    const {data: product} = useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
+    const {data: product} = await useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
     return {product}
   },
   props: {
