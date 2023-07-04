@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink class="flex justify-between flex-row items-center p-3 ml-auto mr-auto fixed top-0 bg-white w-full z-10" to="/">
+  <NuxtLink class="flex justify-between flex-row items-center p-3 ml-auto mr-auto fixed top-0 bg-white w-full z-20" to="/">
     <p class="font-normal text-3xl site-name flex items-center"><Icon class="self-center text-4xl" name="la:shopping-bag"/>FakeStore</p>
     <button @click="$emit('openCart', true)"><Icon class="text-3xl" name="la:shopping-cart"/></button>
   </NuxtLink>
