@@ -1,7 +1,7 @@
 <template>
-  <div class="p-4 box-border max-w-4xl ml-auto mr-auto">
+  <div v-if="!product_error" class="p-4 box-border max-w-4xl mx-auto">
     <div class="flex gap-3 layout">
-      <div class="flex max-w-xs min-w-[300px] flex-shrink-0 justify-center ml-auto mr-auto">
+      <div class="flex max-w-xs min-w-[300px] flex-shrink-0 justify-center mx-auto">
         <img class="max-h-96 object-contain" :src="product.image" alt="">
       </div>
       <div class="p-3 box-border">
@@ -16,15 +16,18 @@
       </div>
     </div>
   </div>
+  <div v-else class="flex justify-center">
+    <p class="text-lg p-3 m-4 rounded-xl shadow-xl flex items-center bg-gray-300 text-red-500 box-border">Unable to load product info. Check your internet connection</p>
+  </div>
 </template>
 
-<script lang="ts">
+<!-- <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   async setup () {
     const route = useRoute();
-    const {data: product} = await useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
+    const {data: product, error: product_error} = await useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
     return {product}
   },
   props: {
@@ -45,6 +48,29 @@ export default defineComponent({
     },
   }
 })
+</script> -->
+
+<script setup lang="ts">
+  const route = useRoute();
+  const {data: product, error: product_error} = await useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
+
+  const props = defineProps({
+    cart: { type: Array, required: true },
+  })
+
+  function addToCart(id: number, price: number) {
+    props.cart.push(
+      {
+        productId: id,
+        quantity: 1,
+        cachedPrice: price,
+      })
+  }
+
+  function isInCart(id: number) {
+    const cartElement = props.cart.find(e => e.productId == id);
+    return cartElement === undefined;
+  }
 </script>
 
 <style scoped>

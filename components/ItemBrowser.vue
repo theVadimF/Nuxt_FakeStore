@@ -7,10 +7,11 @@
       </div>
       <div class="">
         <h2 class="text-xl font-medium">Categories</h2>
-        <div class="flex items-center gap-1" v-for="cat in categories">
+        <div v-if="!categories_error" class="flex items-center gap-1" v-for="cat in categories">
           <input type="checkbox" :name="cat" v-model="selected_categories" :id="cat" :value="cat">
           <label class="capitalize" :for="cat">{{ cat }}</label>
         </div>
+        <p v-else class="p-3 mt-2 rounded-xl shadow-xl flex items-center bg-gray-300 text-red-500 box-border">Unable to load categories. Check your internet connection</p>
       </div>
       <div class="">
         <h2 class="a text-xl font-medium">Price</h2>
@@ -38,15 +39,15 @@
           <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
         </div>
       </div>
-      <ItemGrid class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state: boolean) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
+      <ItemGrid v-if="!products_error" class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state: boolean) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
+      <p class="p-3 m-4 rounded-xl text-lg shadow-xl flex items-center bg-gray-300 text-red-500" v-else>Unable to load products. Check your internet connection</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  // TODO(vf) Handle fetch fail
-  const {data: products} = await useFetch('https://fakestoreapi.com/products');
-  const {data: categories} = await useFetch('https://fakestoreapi.com/products/categories')
+  const {data: products, error: products_error} = await useFetch('https://fakestoreapi.com/products');
+  const {data: categories, error: categories_error} = await useFetch('https://fakestoreapi.com/products/categories')
 
   let selected_categories = ref([]);
   let min_price = ref('');
