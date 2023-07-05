@@ -27,18 +27,13 @@ export default defineComponent({
     return {}
   },
   props: {
-    products: Object,
-    cart: { type: Array, required: true },
-    category_filter: { type: Array, required: true},  // TODO(vf) Check if I can make this optional
-    min_price: { type: String },
-    max_price: { type: String },
-    min_rating: { type: String },
-    grid_view: { type: Boolean }
-  },
-  data() {
-    return {
-      // grid_view: false,
-    }
+    products: {type: Object as ()=> ProductType[], required: true},
+    cart: { type: Array as ()=> CartType[], required: true },
+    category_filter: { type: Array, required: true},
+    min_price: { type: String, required: true },
+    max_price: { type: String, required: true },
+    min_rating: { type: String, required: true },
+    grid_view: { type: Boolean, required: true }
   },
   methods: {
     addToCart(id: number, price: number) {
@@ -53,7 +48,7 @@ export default defineComponent({
       const cartElement = this.cart.find(e => e.productId == id);
       return cartElement === undefined;
     },
-    numericFilters(products: any) {  // TODO(vf) fix type
+    numericFilters(products: ProductType[]) {  // TODO(vf) fix type
       let min_price = 0;
       let max_price = Infinity;
       let min_rating = 0;
@@ -92,25 +87,28 @@ export default defineComponent({
     flex-direction: column
   }
 
-  @tailwind components;
+  .item-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 
-  @layer components {
-    .item-grid {
-      @apply flex flex-col gap-1
-    }
+  .item-grid img {
+    height: 200px;
+    object-fit: contain;
+  }
 
-    .item-grid img {
-      @apply h-[200px] object-contain
-    }
+  .item-list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 100px 1fr;
+  }
 
-    .item-list {
-      @apply grid gap-5;
-      grid-template-columns: 100px 1fr;
-    }
-
-    .item-list img {
-      @apply object-contain h-[100px] justify-self-center self-center
-    }
+  .item-list img {
+    object-fit: contain;
+    height: 100px;
+    justify-self: center;
+    align-self: center;
   }
 
 </style>

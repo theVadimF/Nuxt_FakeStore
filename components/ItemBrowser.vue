@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center min-w-full">
+  <div class="flex max-w-6xl ml-auto mr-auto">
     <div class="flex-col gap-2 filter-wrap" :class="show_filters ? 'flex' : 'hidden'">
       <div class="filter-display justify-between items-center text-3xl p-0 mb-2">
         <h1 class="oswald">Filters</h1>
@@ -29,16 +29,16 @@
         </div>
       </div>
     </div>
-    <div class="">
+    <div class="w-full">
       <div class="ml-4 flex gap-2">
-        <button class="filter-display items-center bg-gray-300 w-fit px-3 py-2 rounded-xl text-md shadow-md ml-3" @click="show_filters = true"><Icon class="text-xl" name="la:filter"/> Filters</button>
+        <button class="filter-display items-center bg-gray-300 w-fit px-3 py-2 rounded-xl text-md shadow-md" @click="show_filters = true"><Icon class="text-xl" name="la:filter"/> Filters</button>
         <div class="flex items-center gap-0 bg-gray-300 w-fit px-3 py-2 rounded-xl text-xl text-gray-500 shadow-md">
           <button class="flex items-center" :class="{'text-black' : !grid_view}" @click="grid_view = false"><Icon name="ph:list-bold"/></button>
           <Icon class="text-black" name="vaadin:line-v"/>
           <button class="flex items-center" :class="{'text-black' : grid_view}" @click="grid_view = true"><Icon name="fluent:grid-24-filled"/></button>
         </div>
       </div>
-      <ItemGrid class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
+      <ItemGrid class="w-full" :products="products" :cart="$attrs.cart" @openCart="(state: boolean) => $emit('openCart', state)" :category_filter="selected_categories" :min_price="min_price.toString()" :max_price="max_price.toString()" :min_rating="min_rating.toString()" :grid_view="grid_view"/>
     </div>
   </div>
 </template>

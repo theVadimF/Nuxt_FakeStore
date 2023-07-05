@@ -6,13 +6,13 @@
       </div>
       <div class="p-3 box-border">
         <h1 class="font-medium text-xl">{{ product.title }}</h1>
-        <p class="mt-3">{{ product.description }}</p>
-        <div class="flex text-xl gap-3 font-light mb-3">
-          <p class="">${{ product.price.toFixed(2) }}</p>
-          <p class="flex gap-[1px] mt-auto">{{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
+        <div class="flex gap-3 font-light mb-3 items-center">
+          <p class="text-xl">${{ product.price.toFixed(2) }}</p>
+          <p class="flex gap-[1px] text-xl">{{ product.rating.rate }}/5 <Icon class="self-center text-2xl text-yellow-500" name="ic:round-star"/> ({{ product.rating.count }})</p>
         </div>
         <button v-if="isInCart(product.id)" class="bg-green-800 text-white px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="addToCart(product.id, product.price)"><Icon class="self-center text-xl" name="la:cart-plus"/>Add to cart</button>
-        <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="$emit('openCart', true)"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
+          <button v-else class="bg-white text-green-800 outline outline-green-800 px-3 py-1 flex gap-1 rounded-xl shadow-md" @click="$emit('openCart', true)"><Icon class="self-center text-xl" name="la:cart-arrow-down"/>In cart</button>
+        <p class="mt-3">{{ product.description }}</p>
       </div>
     </div>
   </div>

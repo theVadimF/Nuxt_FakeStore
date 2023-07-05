@@ -27,8 +27,8 @@
   })
 
   const emit = defineEmits();
-  const {pending, data: product} = useLazyFetch('https://fakestoreapi.com/products/' + props.item.productId);
-  
+  const {pending, data: product} = useLazyFetch<ProductType>('https://fakestoreapi.com/products/' + props.item.productId);
+
   // Update cached price if it differs
   watch(product, (data) => {
     if (data !== undefined && data !== null && props.item.cachedPrice != data.price) {

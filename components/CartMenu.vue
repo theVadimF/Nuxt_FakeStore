@@ -7,7 +7,7 @@
     </div>
     <div class="flex flex-col gap-3 h-full overflow-y-auto box-border p-3">
       <p class="w-full h-full flex justify-center items-center headtext text-5xl text-gray-600" v-if="cart.length === 0">Empty</p>
-      <CartItem v-for="product in cart" :item="product" @removeItem="(item) => removeItem(item)" :key="product.productId"/>
+      <CartItem v-for="product in cart" :item="product" @removeItem="(item: CartType) => removeItem(item)" :key="product.productId"/>
     </div>
     <div class="flex items-center gap-2 p-3">
       <button :disabled="cart.length === 0" class="flex items-center px-3 py-1 gap-1 rounded-xl shadow-md" :class="cart.length === 0 ? 'cursor-not-allowed bg-white text-gray-500 outline outline-gray-500' : 'bg-green-800 text-white'"><Icon class="self-center text-xl" name="la:shopping-bag"/>Checkout</button>
@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-import { remove } from '@vue/shared';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -26,7 +25,7 @@ export default defineComponent({
   },
   props: {
     cart: {
-      type: Object,
+      type: Object as ()=> CartType[],
       required: true,
     }
   },
@@ -39,7 +38,7 @@ export default defineComponent({
       });
       return total.toFixed(2);
     },
-    removeItem(obj: object) {
+    removeItem(obj: CartType) {
       this.cart.splice(this.cart.indexOf(obj), 1);
     } 
   }
