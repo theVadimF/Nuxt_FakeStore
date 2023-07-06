@@ -34,7 +34,7 @@ export default defineComponent({
     calcTotal(): string {
       let total = 0;
       this.cart.forEach(element => {
-        total += element.cachedPrice * element.quantity;
+        total += element.cachedPrice * parseInt(element.quantity);
       });
       return total.toFixed(2);
     },

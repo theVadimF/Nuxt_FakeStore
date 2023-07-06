@@ -16,7 +16,7 @@ declare global {
 
   interface CartType {
     productId: number,
-    quantity: number,
+    quantity: string,
     cachedPrice: number,
   }
 }

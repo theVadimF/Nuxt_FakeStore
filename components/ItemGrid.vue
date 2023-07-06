@@ -48,7 +48,7 @@ export default defineComponent({
       const cartElement = this.cart.find(e => e.productId == id);
       return cartElement === undefined;
     },
-    numericFilters(products: ProductType[]) {  // TODO(vf) fix type
+    numericFilters(products: ProductType[]) {
       let min_price = 0;
       let max_price = Infinity;
       let min_rating = 0;

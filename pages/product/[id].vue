@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!product_error" class="p-4 box-border max-w-4xl mx-auto">
+  <div v-if="!product_error && product != null" class="p-4 box-border max-w-4xl mx-auto">
     <div class="flex gap-3 layout">
       <div class="flex max-w-xs min-w-[300px] flex-shrink-0 justify-center mx-auto">
         <img class="max-h-96 object-contain" :src="product.image" alt="">
@@ -21,48 +21,19 @@
   </div>
 </template>
 
-<!-- <script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  async setup () {
-    const route = useRoute();
-    const {data: product, error: product_error} = await useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
-    return {product}
-  },
-  props: {
-    cart: { type: Array, required: true },
-  },
-  methods: {
-    addToCart(id: number, price: number) {
-      this.cart.push(
-        {
-          productId: id,
-          quantity: 1,
-          cachedPrice: price,
-        })
-    },
-    isInCart(id: number) {
-      const cartElement = this.cart.find(e => e.productId == id);
-      return cartElement === undefined;
-    },
-  }
-})
-</script> -->
-
 <script setup lang="ts">
   const route = useRoute();
-  const {data: product, error: product_error} = await useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
+  const {data: product, error: product_error} = await useFetch<ProductType>(`https://fakestoreapi.com/products/${route.params.id}`)
 
   const props = defineProps({
-    cart: { type: Array, required: true },
+    cart: { type: Array as ()=> CartType[], required: true },
   })
 
   function addToCart(id: number, price: number) {
     props.cart.push(
       {
         productId: id,
-        quantity: 1,
+        quantity: '1',
         cachedPrice: price,
       })
   }

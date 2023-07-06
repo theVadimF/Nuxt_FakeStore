@@ -7,7 +7,7 @@
       <img class="flex-shrink-0 row-span-2 max-h-[100px] justify-self-center self-center image-location" :src="product.image" alt="Product thumbnail">
       <p class="font-medium text-base sm:text-lg row-start-1 col-start-2">{{ product.title }}</p>
       <div class="flex col-end-3 gap-2 items-center mt-auto bottom-location">
-        <SpinBox :value="item.quantity" @increase="increase" @decrease="decrease" />
+        <SpinBox :item="item" @increase="increase" @decrease="decrease" @removeItem="(e: CartType) => $emit('removeItem', e)" />
         <p class="text-base sm:text-lg font-light flex">${{ (product.price * item.quantity).toFixed(2) }}</p>
         <button class="text-2xl flex items-center ml-auto" @click="$emit('removeItem', item)"><Icon name="la:trash-alt"/></button>
       </div>
@@ -37,18 +37,26 @@
   })
 
   function increase() {
-    let tmp = props.item.quantity + 1
-    if (tmp <= 99) {
-      props.item.quantity = tmp;
-    }
+    // if (props.item.quantity === '') {
+    //   props.item.quantity = '1';
+    // } else {
+      let tmp = parseInt(props.item.quantity) + 1
+      if (tmp <= 99) {
+        props.item.quantity = tmp;
+      }
+    // }
   }
 
   function decrease() {
-    let tmp = props.item.quantity - 1
-    if (tmp > 0) {
-      props.item.quantity = tmp;
-    } else {
+    if (props.item.quantity === '') {
       emit('removeItem', props.item);
+    } else {
+      let tmp = parseInt(props.item.quantity) - 1
+      if (tmp > 0) {
+        props.item.quantity = tmp;
+      } else {
+        emit('removeItem', props.item);
+      }
     }
   }
 </script>

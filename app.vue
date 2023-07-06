@@ -1,8 +1,8 @@
 <template>
   <div>
-    <CartMenu v-if="openCart" @closeCart="(state) => openCart = state" :cart="cart"/>
-    <PageHeader @openCart="(state) => openCart = state"/>
-    <NuxtPage class="mt-[60px]" :cart="cart" @openCart="(state) => openCart = state"/>
+    <CartMenu v-if="openCart" @closeCart="(state: boolean) => openCart = state" :cart="cart"/>
+    <PageHeader @openCart="(state: boolean) => openCart = state"/>
+    <NuxtPage class="mt-[60px]" :cart="cart" @openCart="(state: boolean) => openCart = state"/>
   </div>
 </template>
 
@@ -21,5 +21,4 @@
   .oswald {
     font-family: Oswald;
   }
-  /* TODO(vf) set header height here and edit the sticky on browser */
 </style>

@@ -1,8 +1,7 @@
 <template>
   <div class="flex bg-gray-300 rounded-md items-center shadow-md">
     <button class="btn" @click="$emit('decrease')"><Icon name="la:minus"/></button>
-    <!-- TODO(vf) Make input work -->
-    <input type="number" class="w-[35px] rounded-md my-1 flex text-center shadow-sm" v-model="value">
+    <input type="number" min="0" max="99" class="w-[35px] rounded-md my-1 flex text-center shadow-sm" pattern="^(0|[1-9][0-9]{0,1})$" v-model.number="item.quantity" @input="checkValue" @blur="handleBlur">
     <button class="btn" @click="$emit('increase')"><Icon name="la:plus"/></button>
   </div>
 </template>
@@ -15,9 +14,30 @@ export default defineComponent({
     return {}
   },
   props: {
-    value: Number,
+    item: {type: Object as ()=> CartType, required: true},
   },
-  emits: ['increase', 'decrease']
+  emits: ['increase', 'decrease', 'removeItem'],
+  methods: {
+    handleBlur() {
+      if (this.item?.quantity === '') {
+        this.item.quantity = '1';
+      } else if (this.item?.quantity == '0') {
+        this.$emit('removeItem', this.item);
+      }
+    },
+    // There's probable a better way of doing this (pattern attribute does not seem to have an effect in vue)
+    checkValue() {
+      if (parseInt(this.item.quantity) < 0) {
+        this.item.quantity = '1';
+      } else if (parseInt(this.item.quantity) > 99) {
+        this.item.quantity = '99';
+      } else if (this.item.quantity == '-') {
+        this.item.quantity = '';
+      } else if (this.item.quantity !== ''){
+        this.item.quantity = parseInt(this.item.quantity).toString();
+      }
+    }
+  },
 })
 </script>
 
