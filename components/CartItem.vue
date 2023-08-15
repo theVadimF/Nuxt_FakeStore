@@ -37,26 +37,18 @@
   })
 
   function increase() {
-    // if (props.item.quantity === '') {
-    //   props.item.quantity = '1';
-    // } else {
-      let tmp = parseInt(props.item.quantity) + 1
-      if (tmp <= 99) {
-        props.item.quantity = tmp;
-      }
-    // }
+    let tmp = parseInt(props.item.quantity) + 1
+    if (tmp <= 99) {
+      props.item.quantity = tmp;
+    }
   }
 
   function decrease() {
-    if (props.item.quantity === '') {
-      emit('removeItem', props.item);
+    let tmp = parseInt(props.item.quantity) - 1
+    if (tmp > 0) {
+      props.item.quantity = tmp;
     } else {
-      let tmp = parseInt(props.item.quantity) - 1
-      if (tmp > 0) {
-        props.item.quantity = tmp;
-      } else {
-        emit('removeItem', props.item);
-      }
+      emit('removeItem', props.item);
     }
   }
 </script>

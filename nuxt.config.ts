@@ -10,5 +10,9 @@ export default defineNuxtConfig({
       Roboto: true,
       Oswald: true,
     }
+  },
+  app: {
+    baseURL: '/Nuxt_FakeStore/',
+    buildAssetsDir: 'assets'
   }
 })

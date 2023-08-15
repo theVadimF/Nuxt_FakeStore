@@ -1,5 +1,5 @@
 <template>
-  <div class="flex bg-gray-300 rounded-md items-center shadow-md">
+  <div class="flex bg-gray-300 rounded-md shadow-md items-center">
     <button class="btn" @click="$emit('decrease')"><Icon name="la:minus"/></button>
     <input type="number" min="0" max="99" class="w-[35px] rounded-md my-1 flex text-center shadow-sm" pattern="^(0|[1-9][0-9]{0,1})$" v-model.number="item.quantity" @input="checkValue" @blur="handleBlur">
     <button class="btn" @click="$emit('increase')"><Icon name="la:plus"/></button>
