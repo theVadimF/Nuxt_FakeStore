@@ -14,5 +14,8 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/Nuxt_FakeStore/',
     buildAssetsDir: 'assets'
+  },
+  experimental: {
+    payloadExtraction: true
   }
 })
